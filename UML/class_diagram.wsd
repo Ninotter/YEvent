@@ -1,0 +1,30 @@
+@startuml
+
+class User{
+    id: int
+    name: string
+    email: string
+    password: string
+}
+
+class Reservation{
+    id: int
+    user_id: int
+    event_id: int
+    status: string
+}
+
+class Event{
+    id: int
+    name: string
+    description: string
+    date: date
+    location: string
+    capacity: int
+    price: float
+}
+
+Event "1" -- "0..*" Reservation
+User "1" -- "0..*" Reservation
+
+@enduml
