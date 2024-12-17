@@ -1,11 +1,9 @@
 import { FlatList, ScrollView, Text, View } from "react-native";
 import mainBackgroundColor from "../styles/mainBackgroundColor";
 import simpleTextFont from "../styles/simpleTextFont";
-import { getLoadedFonts, useFonts } from "expo-font";
-import YEventeventList from "../components/yeventItemList";
 import YEventsList from "../components/yeventsList";
 
-export default function HomeScreen() {
+export default function HomeScreen({navigation}: any) {
   const latestReleases = getMockDataLatestReleases();
   const fewTicketsLeft = getMockDataFewTicketsLeft();
   return (
@@ -51,12 +49,12 @@ export default function HomeScreen() {
           <Text style={[simpleTextFont.simpleTextFont]}>
             Dernières annonces
           </Text>
-          <YEventsList events={latestReleases}/>
+          <YEventsList events={latestReleases} navigation={navigation}/>
         </View>
         <Text style={[simpleTextFont.simpleTextFont]}>
           Bientôt plus de places
         </Text>
-        <YEventsList events={fewTicketsLeft}/>
+        <YEventsList events={fewTicketsLeft} navigation={navigation}/>
       </View>
     </ScrollView>
   );

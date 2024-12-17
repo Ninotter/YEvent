@@ -3,8 +3,18 @@ import { Text, View } from "react-native";
 import mainBackgroundColor from "../styles/mainBackgroundColor";
 import simpleTextFont from "../styles/simpleTextFont";
 
-const YEventeventList = ({yevent} : {yevent : YEvent}) => {
+interface YEventsListProps {
+
+    yevent: YEvent;
+  
+    navigation?: any;
+  
+  }
+  
+
+const YEventItemList : React.FC<YEventsListProps> = ({yevent, navigation}) => {
   return <View
+    onTouchEndCapture={() => navigation.navigate('Details', { yevent })}
     style={{
       flexDirection: "column",
       padding: 10,
@@ -43,4 +53,4 @@ const YEventeventList = ({yevent} : {yevent : YEvent}) => {
   </View>;
 };
 
-export default YEventeventList;
+export default YEventItemList;

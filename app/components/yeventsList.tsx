@@ -1,13 +1,20 @@
 import { FlatList } from "react-native";
-import YEventeventList from "./yeventItemList";
+import YEventItemList from "./yeventItemList";
+interface YEventsListProps {
 
-const YEventsList = ({ events }: { events: Array<YEvent> }) => {
+    events: YEvent[];
+  
+    navigation?: any;
+  
+  }
+  
+const YEventsList : React.FC<YEventsListProps> = ({events, navigation}) => {
   return <FlatList
               horizontal={true}
               data={events}
               showsHorizontalScrollIndicator={false}
               renderItem={({ item }) => (
-                <YEventeventList yevent={item}></YEventeventList>
+                <YEventItemList yevent={item} navigation={navigation}></YEventItemList>
               )}
             ></FlatList>
 };
