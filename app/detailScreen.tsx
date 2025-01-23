@@ -2,6 +2,7 @@ import React from 'react';
 import { View, Text, Image, StyleSheet, Button } from 'react-native';
 import { openMap } from './openMap';
 import mainBackgroundColor from './styles/mainBackgroundColor';
+import IntegratedMap from './components/integratedMap';
 
 function DetailScreen({route}:any) {
     const { yevent } = route.params;
@@ -13,9 +14,6 @@ function DetailScreen({route}:any) {
             <Text style={styles.description}>{yevent.description}</Text>
             <Text style={styles.date}>Date: {yevent.date}</Text>
             <Text style={styles.location}>{yevent.location}</Text>
-            <Button title="Voir sur la carte" onPress={() => {
-                openMap({lat: 0, lng: 0, label: yevent.location});
-            }} />
             <Text style={styles.capacity}>Nombre de places: {yevent.leftCapacity}/{yevent.maxCapacity}</Text>
             <Text style={styles.price}>{yevent.price == 0 ? "Gratuit" : `Prix : ${yevent.price}€`}</Text>
 
@@ -24,6 +22,10 @@ function DetailScreen({route}:any) {
             onPress={() => {
                 //pop-up "Réserver"
 
+            }}/>
+            <IntegratedMap latitude={0} longitude={0} title={yevent.name} />
+            <Button title="Voir l'emplacement dans l'application" onPress={() => {
+                openMap({lat: 0, lng: 0, label: yevent.location});
             }} />
         </View>
     );
