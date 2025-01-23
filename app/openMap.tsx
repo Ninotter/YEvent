@@ -18,3 +18,5 @@ export const openMap = ({lat, lng, label}: OpenMapArgs) => {
     );
   }
 };
+
+export default openMap;

@@ -1,11 +1,8 @@
 type YEvent = {
     id: number;
-    name: string;
+    titre: string;
     description: string;
     date: string;
-    location: string;
-    maxCapacity: number;
-    imageUrl?: string;
-    leftCapacity: number;
-    price: number;
+    places_max: number;
+    places_restantes: number;
 }
