@@ -1,4 +1,4 @@
-import { FlatList, ScrollView, Text, View } from "react-native";
+import { ActivityIndicator, FlatList, ScrollView, Text, View } from "react-native";
 import mainBackgroundColor from "../styles/mainBackgroundColor";
 import simpleTextFont from "../styles/simpleTextFont";
 import YEventsList from "../components/yeventsList";
@@ -86,20 +86,20 @@ export default function HomeScreen({navigation}: any) {
         }}
       >
         <View
-          style={{ flexDirection: "column", justifyContent: "space-between" }}
+          style={{ flexDirection: "column", justifyContent: "space-between", minHeight: 200 }}
         >
           <Text style={[simpleTextFont.simpleTextFont]}>
             Dernières annonces
           </Text>
           {loading ? (
-            <Text style={{flex : 1}}>Loading...</Text>
+            <ActivityIndicator size="large" color="#0000ff" style={{justifyContent: 'center', alignContent: 'center', alignItems: 'center'}}/>
           ) : (
             <YEventsList events={latestReleases} navigation={navigation} />
           )}
-        </View>
         <Text style={[simpleTextFont.simpleTextFont]}>
           Bientôt plus de places
         </Text>
+        </View>
         <YEventsList events={latestReleases} navigation={navigation}/>
       </View>
     </ScrollView>
