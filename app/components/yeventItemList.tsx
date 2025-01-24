@@ -29,7 +29,7 @@ const YEventItemList : React.FC<YEventsListProps> = ({yevent, navigation}) => {
     <Text style={[simpleTextFont.simpleTextFont, { color: "gray" }]}>
       {yevent.date}
     </Text>
-    {/* <Text style={[simpleTextFont.simpleTextFont]}>{yevent.location}</Text> */}
+    <Text style={[simpleTextFont.simpleTextFont]}>{yevent.lieu}</Text>
     <Text style={[simpleTextFont.simpleTextFont]}>{yevent.description}</Text>
     <Text style={[simpleTextFont.simpleTextFont]}>
     </Text>
@@ -39,7 +39,7 @@ const YEventItemList : React.FC<YEventsListProps> = ({yevent, navigation}) => {
         { color: "green", alignSelf: "flex-end" },
       ]}
     >
-      {/* {yevent.price === 0 ? "Gratuit" : yevent.price + "€"} */}
+      {yevent.prix === 0 ? "Gratuit" : yevent.prix + "€"}
     </Text>
     {yevent.places_restantes > 0 ? (
         <Text style={[simpleTextFont.simpleTextFont, { color: "green", alignSelf: "flex-end" }]}>

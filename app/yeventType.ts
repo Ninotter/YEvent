@@ -5,4 +5,8 @@ type YEvent = {
     date: string;
     places_max: number;
     places_restantes: number;
+    lieu: string;
+    prix: number;
+    latitude: number;
+    longitude: number;
 }

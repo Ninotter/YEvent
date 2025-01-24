@@ -5,17 +5,16 @@ import mainBackgroundColor from './styles/mainBackgroundColor';
 import IntegratedMap from './components/integratedMap';
 
 function DetailScreen({route}:any) {
-    const { yevent } = route.params;
+    const { yevent } = route.params as { yevent: YEvent };
 
     return (
         <View style={styles.container}>
-            <Text style={styles.title}>{yevent.name}</Text>
-            {yevent.imageUrl == null ? "" : <Image source={{ uri: yevent.imageUrl }} style={styles.image} />}
+            <Text style={styles.title}>{yevent.titre}</Text>
             <Text style={styles.description}>{yevent.description}</Text>
             <Text style={styles.date}>Date: {yevent.date}</Text>
-            <Text style={styles.location}>{yevent.location}</Text>
-            <Text style={styles.capacity}>Nombre de places: {yevent.leftCapacity}/{yevent.maxCapacity}</Text>
-            <Text style={styles.price}>{yevent.price == 0 ? "Gratuit" : `Prix : ${yevent.price}€`}</Text>
+            <Text style={styles.location}>{yevent.lieu}</Text>
+            <Text style={styles.capacity}>Nombre de places: {yevent.places_restantes}/{yevent.places_max}</Text>
+            <Text style={styles.price}>{yevent.prix == 0 ? "Gratuit" : `Prix : ${yevent.prix}€`}</Text>
 
             <Button title="Réserver"
             
@@ -23,9 +22,9 @@ function DetailScreen({route}:any) {
                 //pop-up "Réserver"
 
             }}/>
-            <IntegratedMap latitude={0} longitude={0} title={yevent.name} />
+            <IntegratedMap latitude={yevent.latitude} longitude={yevent.longitude} title={yevent.titre} />
             <Button title="Voir l'emplacement dans l'application" onPress={() => {
-                openMap({lat: 0, lng: 0, label: yevent.location});
+                openMap({lat: yevent.latitude, lng: yevent.longitude, label: yevent.lieu});
             }} />
         </View>
     );
