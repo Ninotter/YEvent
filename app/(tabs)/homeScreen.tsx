@@ -100,7 +100,8 @@ export default function HomeScreen({navigation}: any) {
           {loading ? (
             <ActivityIndicator size="large" color="#0000ff" style={{justifyContent: 'center', alignContent: 'center', alignItems: 'center'}}/>
           ) : (
-            <YEventsList events={latestReleases} navigation={navigation} />
+            latestReleases.length == 0 ? (<Text>Pas d'evênemenets disponibles</Text>) : (
+            <YEventsList events={latestReleases} navigation={navigation} /> )
           )}
         <Text style={[simpleTextFont.simpleTextFont]}>
           Bientôt plus de places
