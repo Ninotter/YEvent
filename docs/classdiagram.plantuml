@@ -1,0 +1,18 @@
+@startuml
+Evenements *-- Utilisateur
+class Evenements {
+    id: number
+    titre: string
+    description: string
+    date: string
+    places_max: number
+    places_restantes: number
+}
+
+class Utilisateur {
+    id: number
+    nom: varchar
+    email: varchar
+    password: varchar
+}
+@enduml

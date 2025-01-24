@@ -1,0 +1,20 @@
+@startuml
+left to right direction
+:Utilisateur: as User
+package Application {
+    usecase "Se connecter" as UC1
+    usecase "Se déconnecter" as UC2
+    usecase "Voir la liste des évènements" as UC3
+    usecase "Voir le détail d'un évènement" as UC4
+    usecase "Voir un évènement sur la carte" as UC5
+    usecase "Créer un évènement" as UC6
+
+}
+User --> UC1
+User --> UC2
+User --> UC3
+User --> UC4
+User --> UC5
+User --> UC6
+
+@enduml
