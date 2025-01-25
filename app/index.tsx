@@ -3,6 +3,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import MyTickets from "./(tabs)/myTickets";
 import HomeScreen from "./(tabs)/homeScreen";
+import userProfile from "./(tabs)/userProfile";
 import DetailScreen from "./detailScreen";
 import { getLoadedFonts, useFonts } from "expo-font";
 import mainBackgroundColor from "./styles/mainBackgroundColor";
@@ -57,6 +58,18 @@ function MainTabNavigator() {
           tabBarIcon: ({ color, focused, size }) => (
             <Image
               source={require("../assets/images/ticket-icon.png")}
+              style={getImageBarStyle(color, focused, size)}
+            />
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="User Profile"
+        component={userProfile}
+        options={{
+          tabBarIcon: ({ color, focused, size }) => (
+            <Image
+              source={require("../assets/images/user-icon.png")}
               style={getImageBarStyle(color, focused, size)}
             />
           ),

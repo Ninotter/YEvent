@@ -16,13 +16,15 @@ export default function MyTickets({ navigation }: any) {
         style={[
           mainBackgroundColor.mainBackgroundColor,
           {
-            fontSize: 56,
+            minHeight: 80,
+            maxHeight: 200,
+            fontSize: 36,
             fontWeight: "bold",
             textAlign: "right",
           },
         ]}
       >
-        My Tickets
+        Mes réservations
       </Text>
       <Text
         style={{
