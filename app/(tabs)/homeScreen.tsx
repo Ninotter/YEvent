@@ -34,7 +34,7 @@ export default function HomeScreen({navigation}: any) {
 
    // Use useEffect to control when getEvents is called
    useEffect(() => {
-    Database.getEvents();
+    LoadEvents();
   }, []);
 
   return (
@@ -83,7 +83,7 @@ export default function HomeScreen({navigation}: any) {
           {loading ? (
             <ActivityIndicator size="large" color="#0000ff" style={{justifyContent: 'center', alignContent: 'center', alignItems: 'center'}}/>
           ) : (
-            latestReleases.length == 0 ? (<Text>Pas d'evênemenets disponibles</Text>) : (
+            latestReleases.length == 0 ? (<Text>Pas d'événement disponibles</Text>) : (
             <YEventsList events={latestReleases} navigation={navigation} /> )
           )}
         <Text style={[simpleTextFont.simpleTextFont]}>
