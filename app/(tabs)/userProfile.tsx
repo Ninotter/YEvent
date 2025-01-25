@@ -1,7 +1,7 @@
 import { Text, View } from "react-native";
 import mainBackgroundColor from "../styles/mainBackgroundColor";
 
-export default function userProfile({ navigation }: any) {
+export default function UserProfile({ navigation }: any) {
   return (
     <View
       style={{
