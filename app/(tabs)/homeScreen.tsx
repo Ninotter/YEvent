@@ -4,6 +4,7 @@ import simpleTextFont from "../styles/simpleTextFont";
 import YEventsList from "../components/yeventsList";
 import {supabase} from '../lib/supabase'
 import { useEffect, useState } from "react";
+import Database from '../database';
 
 
 
@@ -12,33 +13,15 @@ export default function HomeScreen({navigation}: any) {
   const [latestReleases, setLatestReleases] = useState<Array<YEvent>>([]);
   const [loading, setLoading] = useState(false);
 
-  async function getEvents() {
+  async function LoadEvents() {
     setLoading(true);
     try {
-      const { data, error, status } = await supabase
-        .from('Evenements')
-        .select('*')
-        .order('date', { ascending: true })
-        .limit(5);
-      if (error && status !== 406) {
-        throw error
-      }
-
+      const data = await Database.getEvents();
       if (data) {
-        const events: YEvent[] = data.map((item: any) => ({
-          id: item.id,
-          titre: item.titre,
-          description: item.description,
-          date: item.date,
-          places_max: item.places_max,
-          places_restantes: item.places_restantes,
-          lieu: item.lieu,
-          prix: item.prix,
-          latitude: item.latitude,
-          longitude: item.longitude
-        }));
-
-        setLatestReleases(events);
+        setLatestReleases(data);
+      }
+      else{
+        throw new Error("No data found");
       }
     } catch (error) {
       if (error instanceof Error) {
@@ -51,7 +34,7 @@ export default function HomeScreen({navigation}: any) {
 
    // Use useEffect to control when getEvents is called
    useEffect(() => {
-    getEvents();
+    Database.getEvents();
   }, []);
 
   return (
