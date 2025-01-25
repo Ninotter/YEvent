@@ -1,4 +1,4 @@
-@startuml
+@startuml Diagramme d'entités.
 Evenements *-- Utilisateur
 class Evenements {
     id: number
@@ -15,4 +15,9 @@ class Utilisateur {
     email: varchar
     password: varchar
 }
+
+note top of Evenements
+    Les réservations sont représentées par la relation 
+    entre les tables Evenements et Utilisateur.
+end note
 @enduml

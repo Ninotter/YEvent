@@ -33,5 +33,30 @@ class Database {
     }
     return undefined;
   }
+
+  public static async getUsers() : Promise<Array<Utilisateur>| undefined> {
+    try {
+      const { data, error, status } = await supabase
+        .from('Utilisateurs')
+        .select('*');
+      if (error && status !== 406) {
+        throw error
+      }
+
+      if (data) {
+        return data.map((item: any) => ({
+          id: item.id,
+          nom: item.nom,
+          email: item.email,
+          password: item.password
+        }));
+      }
+    } catch (error) {
+      if (error instanceof Error) {
+        throw error;
+      }
+    }
+    return undefined;
+  }
 }
 export default Database;
