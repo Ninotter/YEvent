@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import Database from '../database';
 import { UserSingleton } from "../UserSingleton";
 import Toast from "react-native-toast-message";
+import { useIsFocused } from "@react-navigation/native";
 
 
 export default function HomeScreen({navigation}: any) {
@@ -14,6 +15,7 @@ export default function HomeScreen({navigation}: any) {
   const [latestReleases, setLatestReleases] = useState<Array<YEvent>>([]);
   const [loadingUsers, setLoadingUsers] = useState(false);
   const [randomUser, setRandomUser] = useState<Utilisateur>();
+  const isFocused = useIsFocused();
 
   async function getRandomUser() {
     setLoadingUsers(true);
@@ -62,10 +64,13 @@ export default function HomeScreen({navigation}: any) {
     }
   }
 
-   useEffect(() => {
-     getRandomUser();
-    loadEvents();
+  useEffect(() => {
+    getRandomUser();
   }, []);
+
+   useEffect(() => {
+      loadEvents();
+  }, [isFocused]);
 
   return (
     <ScrollView

@@ -6,10 +6,14 @@ import { useEffect, useState } from "react";
 import Toast from "react-native-toast-message";
 import Database from "../database";
 import { UserSingleton } from "../UserSingleton";
+import { useIsFocused } from "@react-navigation/native";
 
 export default function MyTickets({ navigation }: any) {
   const myTickets = Array<YEvent>();
   const usedTickets = Array<YEvent>();
+  const isFocused = useIsFocused();
+
+
 
   const [loadingUpcoming, setLoadingUpcoming] = useState(true);
   const [loadingUsed, setLoadingUsed] = useState(true);
@@ -54,7 +58,7 @@ export default function MyTickets({ navigation }: any) {
   useEffect(() => {
     loadTickets();
   }
-  , []);
+  , [isFocused]);
 
   return (
     <View
