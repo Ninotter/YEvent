@@ -1,8 +1,7 @@
-import { ActivityIndicator, FlatList, ScrollView, Text, View } from "react-native";
+import { ActivityIndicator, ScrollView, Text, View } from "react-native";
 import mainBackgroundColor from "../styles/mainBackgroundColor";
 import simpleTextFont from "../styles/simpleTextFont";
 import YEventsList from "../components/yeventsList";
-import {supabase} from '../lib/supabase'
 import { useEffect, useState } from "react";
 import Database from '../database';
 import { UserSingleton } from "../UserSingleton";
