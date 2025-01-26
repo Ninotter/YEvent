@@ -5,16 +5,38 @@ import YEventsList from "../components/yeventsList";
 import {supabase} from '../lib/supabase'
 import { useEffect, useState } from "react";
 import Database from '../database';
-
+import { UserSingleton } from "../UserSingleton";
 
 
 export default function HomeScreen({navigation}: any) {
 
+  const [loadingEvents, setLoadingEvents] = useState(false);
   const [latestReleases, setLatestReleases] = useState<Array<YEvent>>([]);
-  const [loading, setLoading] = useState(false);
+  const [loadingUsers, setLoadingUsers] = useState(false);
+  const [randomUser, setRandomUser] = useState<Utilisateur>();
 
-  async function LoadEvents() {
-    setLoading(true);
+  async function getRandomUser() {
+    setLoadingUsers(true);
+    const data = await Database.getRandomUser();
+    try {
+      if (data) {
+        console.log("User found: ", data);
+        UserSingleton.instance.user = data;
+        console.log("UserSingleton: ", UserSingleton.instance.user);
+        setRandomUser(UserSingleton.instance.user);
+      }
+    } catch (error) {
+      if (error instanceof Error) {
+        console.error(error.message);
+        throw error;
+      }
+    } finally {
+      setLoadingUsers(false);
+    }
+  }
+
+  async function loadEvents() {
+    setLoadingEvents(true);
     try {
       const data = await Database.getEvents();
       if (data) {
@@ -28,13 +50,13 @@ export default function HomeScreen({navigation}: any) {
         console.error(error.message)
       }
     } finally {
-      setLoading(false);
+      setLoadingEvents(false);
     }
   }
 
-   // Use useEffect to control when getEvents is called
    useEffect(() => {
-    LoadEvents();
+     getRandomUser();
+    loadEvents();
   }, []);
 
   return (
@@ -63,7 +85,7 @@ export default function HomeScreen({navigation}: any) {
         >
           YEvent
         </Text>
-        <Text style={[simpleTextFont.simpleTextFont]}>Bonjour user</Text>
+        { loadingUsers ? <ActivityIndicator size="small" color="#0000ff" /> : <Text style={[simpleTextFont.simpleTextFont]}>Bonjour {randomUser?.nom}</Text> }
       </View>
       <View
         style={{
@@ -80,7 +102,7 @@ export default function HomeScreen({navigation}: any) {
           <Text style={[simpleTextFont.simpleTextFont]}>
             Dernières annonces
           </Text>
-          {loading ? (
+          {loadingEvents ? (
             <ActivityIndicator size="large" color="#0000ff" style={{justifyContent: 'center', alignContent: 'center', alignItems: 'center'}}/>
           ) : (
             latestReleases.length == 0 ? (<Text>Pas d'événement disponible</Text>) : (

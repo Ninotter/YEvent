@@ -9,12 +9,14 @@ import {
 } from "react-native";
 import { TextInput } from "react-native-gesture-handler";
 import Toast from "react-native-toast-message";
+import { UserSingleton } from "./UserSingleton";
 
 function ReservationScreen({ route }: any) {
   const { yevent } = route.params as { yevent: YEvent };
   const { navigation } = route.params as { navigation: any };
   const [myNumber, setNumber] = useState<number>(1);
   const [loading, setLoading] = useState(false);
+  const user = UserSingleton.instance.user;
 
   async function sendReservation() {
     setLoading(true);
@@ -44,8 +46,8 @@ function ReservationScreen({ route }: any) {
             <ActivityIndicator size="large" color="#0000ff" style={{justifyContent: 'center', alignContent: 'center', alignItems: 'center'}}/>
           ) : (
             <>
-            <TextInput placeholder="nom"></TextInput>
-            <TextInput placeholder="email"></TextInput>
+            <TextInput placeholder="nom" value={user?.nom}></TextInput>
+            <TextInput placeholder="email" value={user?.email}></TextInput>
             <TextInput
                 keyboardType="numeric"
                 onChangeText={(text) => onNbBilletChanged(text)}

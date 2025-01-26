@@ -1,6 +1,34 @@
 import {supabase} from './lib/supabase'
 
 class Database {
+  static async getRandomUser() : Promise<Utilisateur | undefined> {
+    try {
+      const { data, error, status } = await supabase
+        .from('Utilisateurs')
+        .select('*')
+        .order('id', { ascending: true });
+      if (error && status !== 406) {
+        console.log(error);
+        throw error
+      }
+
+      if (data) {
+        //return a random user in the list
+        const randomIndex = Math.floor(Math.random() * data.length);
+        return {
+          id: data[randomIndex].id,
+          nom: data[randomIndex].nom,
+          email: data[randomIndex].email,
+          password: data[randomIndex].password
+        }
+      }
+    } catch (error) {
+      if (error instanceof Error) {
+        throw error;
+      }
+    }
+    return undefined;
+  }
   static async getEvents(limit: number = 5) : Promise<Array<YEvent>| undefined>  {
     try {
       const { data, error, status } = await supabase
