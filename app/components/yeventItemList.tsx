@@ -14,7 +14,7 @@ interface YEventsListProps {
 
 const YEventItemList : React.FC<YEventsListProps> = ({yevent, navigation}) => {
   return <View
-    onTouchEndCapture={() => navigation.navigate('Details', { yevent })}
+    onTouchEndCapture={() => navigation.navigate('Details', { yevent,navigation })}
     style={{
       flexDirection: "column",
       padding: 10,
