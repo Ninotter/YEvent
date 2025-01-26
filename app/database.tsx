@@ -8,7 +8,6 @@ class Database {
         .select('*')
         .order('id', { ascending: true });
       if (error && status !== 406) {
-        console.log(error);
         throw error
       }
 
@@ -105,6 +104,96 @@ class Database {
       }
     }
     return false;
+  }
+
+  public static async getUpcomingReservationbyUser(id: number) : Promise<Array<YEvent>| undefined> {
+    try {
+      const { data, error, status } = await supabase
+        .from('Reservation')
+        .select('*')
+        .eq('id_utilisateur', id)
+
+      if (error && status !== 406) {
+        throw error
+      }
+
+      //query the events with the id reservation, if date is not yet passed
+      const events = data!.map((item: any) => item.id_evenements);
+      const { data: eventData, error: eventError, status: eventStatus } = await supabase
+        .from('Evenements')
+        .select('*')
+        .in('id', events)
+        .gte('date', new Date().toISOString())
+      if (eventError && eventStatus !== 406) {
+        throw eventError
+      }
+
+      if (eventData) {
+        return eventData.map((item: any) => ({
+          id: item.id,
+          titre: item.titre,
+          description: item.description,
+          date: item.date,
+          places_max: item.places_max,
+          places_restantes: item.places_restantes,
+          lieu: item.lieu,
+          prix: item.prix,
+          latitude: item.latitude,
+          longitude: item.longitude
+        }));
+      }
+
+    } catch (error) {
+      if (error instanceof Error) {
+        throw error;
+      }
+    }
+    return undefined;
+  }
+
+  public static async getUsedReservationbyUser(id: number) : Promise<Array<YEvent>| undefined> {
+    try {
+      const { data, error, status } = await supabase
+        .from('Reservation')
+        .select('*')
+        .eq('id_utilisateur', id)
+
+      if (error && status !== 406) {
+        throw error
+      }
+
+      //query the events with the id reservation, if date is passed
+      const events = data!.map((item: any) => item.id_evenements);
+      const { data: eventData, error: eventError, status: eventStatus } = await supabase
+        .from('Evenements')
+        .select('*')
+        .in('id', events)
+        .lte('date', new Date().toISOString())
+      if (eventError && eventStatus !== 406) {
+        throw eventError
+      }
+
+      if (eventData) {
+        return eventData.map((item: any) => ({
+          id: item.id,
+          titre: item.titre,
+          description: item.description,
+          date: item.date,
+          places_max: item.places_max,
+          places_restantes: item.places_restantes,
+          lieu: item.lieu,
+          prix: item.prix,
+          latitude: item.latitude,
+          longitude: item.longitude
+        }));
+      }
+
+    } catch (error) {
+      if (error instanceof Error) {
+        throw error;
+      }
+    }
+    return undefined;
   }
 }
 export default Database;
