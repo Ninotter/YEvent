@@ -87,14 +87,11 @@ class Database {
   }
 
   public static async postReservation(reservation: Reservation) : Promise<boolean> {
-    console.log(reservation);
     try {
       const { data, error, status } = await supabase
         .from('Reservation')
         .insert(reservation);
       if (error && status !== 406) {
-        console.log(error)
-        console.log(status)
         throw error
       }
       return true;

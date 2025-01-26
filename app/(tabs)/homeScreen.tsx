@@ -22,9 +22,7 @@ export default function HomeScreen({navigation}: any) {
     const data = await Database.getRandomUser();
     try {
       if (data) {
-        console.log("User found: ", data);
         UserSingleton.instance.user = data;
-        console.log("UserSingleton: ", UserSingleton.instance.user);
         setRandomUser(UserSingleton.instance.user);
       }
     } catch (error) {

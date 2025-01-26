@@ -29,7 +29,6 @@ function ReservationScreen({ route }: any) {
         nb_places: myNumber,
       }
       var success = await Database.postReservation(reservation)
-      console.log(success)
       if (!success) {
         throw new Error("Error while posting reservation");
       }

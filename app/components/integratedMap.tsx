@@ -20,7 +20,6 @@ const IntegratedMap: React.FC<IntegratedMapProps> = ({
   title,
   description,
 }) => {
-  console.log(currentLatitude, currentLongitude);
   return (
     <View style={{ flex: 1, marginTop: 30 }}>
       <MapView style={{ flex: 1 }}>

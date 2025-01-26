@@ -27,7 +27,6 @@ export default function MyTickets({ navigation }: any) {
     try {
       const upcomingData = await Database.getUpcomingReservationbyUser(user.id);
       const usedData = await Database.getUsedReservationbyUser(user.id);
-      console.log(upcomingData);
       
       if (upcomingData) {
         setUpcoming(upcomingData);
