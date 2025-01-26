@@ -5,6 +5,7 @@ import YEventsList from "../components/yeventsList";
 import { useEffect, useState } from "react";
 import Database from '../database';
 import { UserSingleton } from "../UserSingleton";
+import Toast from "react-native-toast-message";
 
 
 export default function HomeScreen({navigation}: any) {
@@ -26,7 +27,11 @@ export default function HomeScreen({navigation}: any) {
       }
     } catch (error) {
       if (error instanceof Error) {
-        console.error(error.message);
+        Toast.show({
+          type: "error",
+          text1: "Erreur",
+          text2: error.message,
+        });
         throw error;
       }
     } finally {
@@ -46,7 +51,11 @@ export default function HomeScreen({navigation}: any) {
       }
     } catch (error) {
       if (error instanceof Error) {
-        console.error(error.message)
+        Toast.show({
+          type: "error",
+          text1: "Erreur",
+          text2: error.message,
+        });
       }
     } finally {
       setLoadingEvents(false);
