@@ -6,6 +6,8 @@ import { Marker } from "react-native-maps";
 interface IntegratedMapProps {
   latitude: number;
   longitude: number;
+  currentLongitude: number | undefined;
+  currentLatitude: number | undefined;
   title: string;
   description?: string;
 }
@@ -13,9 +15,12 @@ interface IntegratedMapProps {
 const IntegratedMap: React.FC<IntegratedMapProps> = ({
   latitude,
   longitude,
+  currentLatitude,
+  currentLongitude,
   title,
   description,
 }) => {
+  console.log(currentLatitude, currentLongitude);
   return (
     <View style={{ flex: 1, marginTop: 30 }}>
       <MapView style={{ flex: 1 }}>
@@ -25,6 +30,13 @@ const IntegratedMap: React.FC<IntegratedMapProps> = ({
           title={title}
           description={description}
         />
+        currentLatitude !== undefined && currentLongitude !== undefined ? (
+          <LocationMarker
+            latitude={currentLatitude!}
+            longitude={currentLongitude!}
+            title="Vous êtes ici"
+            />
+        ) : null
       </MapView>
     </View>
   );
