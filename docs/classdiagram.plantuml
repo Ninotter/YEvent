@@ -1,0 +1,23 @@
+@startuml Diagramme d'entités.
+Evenements *-- Utilisateur
+class Evenements {
+    id: number
+    titre: string
+    description: string
+    date: string
+    places_max: number
+    places_restantes: number
+}
+
+class Utilisateur {
+    id: number
+    nom: varchar
+    email: varchar
+    password: varchar
+}
+
+note top of Evenements
+    Les réservations sont représentées par la relation 
+    entre les tables Evenements et Utilisateur.
+end note
+@enduml
