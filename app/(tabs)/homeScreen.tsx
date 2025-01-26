@@ -42,7 +42,7 @@ export default function HomeScreen({navigation}: any) {
   async function loadEvents() {
     setLoadingEvents(true);
     try {
-      const data = await Database.getEvents();
+      const data = await Database.getEvents(20);
       if (data) {
         setLatestReleases(data);
       }
