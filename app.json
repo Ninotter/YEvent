@@ -11,7 +11,13 @@
     "ios": {
       "supportsTablet": true
     },
+    "permissions": ["location"],
     "android": {
+      "permissions" : [
+        "ACCESS_COARSE_LOCATION",
+        "ACCESS_FINE_LOCATION",
+        "CAMERA"
+      ],
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#ffffff"

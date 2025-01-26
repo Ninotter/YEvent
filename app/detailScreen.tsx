@@ -1,15 +1,36 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, Text, Image, StyleSheet, Button } from 'react-native';
 import { openMap } from './openMap';
-import mainBackgroundColor from './styles/mainBackgroundColor';
 import IntegratedMap from './components/integratedMap';
-import Toast from 'react-native-toast-message';
-
+import * as Location from "expo-location";
 
 function DetailScreen({route}:any) {
     const { yevent } = route.params as { yevent: YEvent };
     const { navigation } = route.params as { navigation: any };
 
+    const [location, setLocation] = useState<Location.LocationObject | undefined>(undefined);
+    const [errorMsg, setErrorMsg] = useState("");
+  
+    useEffect(() => {
+      (async () => {
+        let { status } = await Location.requestForegroundPermissionsAsync();
+        if (status !== "granted") {
+          setErrorMsg("Permission to access location was denied");
+          return;
+        }
+  
+        let currentLocation = await Location.getCurrentPositionAsync({});
+        setLocation(currentLocation);
+      })();
+    }, []);
+  
+    // Default region
+    const region = {
+      latitude: location?.coords?.latitude || 37.78825,
+      longitude: location?.coords?.longitude || -122.4324,
+      latitudeDelta: 0.0922,
+      longitudeDelta: 0.0421,
+    };
     return (
         <View style={styles.container}>
             <Text style={styles.title}>{yevent.titre}</Text>
@@ -25,7 +46,7 @@ function DetailScreen({route}:any) {
             <Button title="Réserver" onPress={() => {
                 navigation.navigate('Reservation', {yevent: yevent, navigation: navigation});
             }}/>
-            <IntegratedMap latitude={yevent.latitude} longitude={yevent.longitude} title={yevent.titre} />
+            <IntegratedMap latitude={yevent.latitude} longitude={yevent.longitude} title={yevent.titre} currentLatitude={location?.coords.latitude} currentLongitude={location?.coords.longitude} />
             <Button title="Voir l'emplacement dans l'application" onPress={() => {
                 openMap({lat: yevent.latitude, lng: yevent.longitude, label: yevent.lieu});
             }} />
